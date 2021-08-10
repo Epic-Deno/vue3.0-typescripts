@@ -4,7 +4,7 @@
  * @Autor: PONY ZHANG
  * @Date: 2020-11-08 22:01:32
  * @LastEditors: PONY ZHANG
- * @LastEditTime: 2020-11-09 21:04:45
+ * @LastEditTime: 2021-01-08 18:36:51
 -->
 <template>
   <div>
@@ -23,8 +23,19 @@
 <script lang="ts">
 import { IUseTodo, useTodo } from '@/hooks'
 import { ITodo } from '@/typings'
-import { defineComponent, onMounted, PropType } from 'vue'
+import { defineComponent, onMounted, PropType, reactive } from 'vue'
 import TodoItem from './Item.vue'
+interface CardList {
+    title: string,
+    icon: string,
+    price: number,
+    up: boolean,
+    mon: string,
+    percent: string,
+}
+interface Todo {
+    growCardList: CardList
+}
 export default defineComponent({
     name:'TodoList',
     props: {
@@ -35,7 +46,9 @@ export default defineComponent({
     },
     setup(props) {
         const { removeTodo,setStatus,setDoing }: IUseTodo = useTodo();
-
+        const data =  reactive({
+            growCardList: [] as CardList[]
+        })
         return {
             removeTodo,
             setStatus,
